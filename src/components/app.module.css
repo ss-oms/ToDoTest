@@ -1,0 +1,14 @@
+.container {
+  background-color: rgb(237, 247, 225);
+
+  min-width: 600px;
+  border-radius: 20px;
+
+  padding: 20px 50px;
+}
+
+.container__title {
+  margin-bottom: 0.3em;
+  font-size: 40px;
+  text-align: center;
+}

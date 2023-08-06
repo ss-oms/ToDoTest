@@ -1,0 +1,38 @@
+.containerList {
+  background-color: rgb(174, 174, 219);
+  border-radius: 5px;
+  height: 55px;
+  margin-bottom: 10px;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 10px 10px 20px;
+  padding-top: 8px;
+}
+
+.listItem__text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 420px;
+}
+
+.listItemEdit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.listItem__ediit {
+  width: 500px;
+  padding-bottom: 10px;
+}
+
+.containerListEmpty {
+  margin-top: 0.5em;
+  font-size: 30px;
+  text-align: center;
+}

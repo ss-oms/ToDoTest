@@ -1,0 +1,16 @@
+.addTodoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 650px;
+  padding-bottom: 10px;
+}
+
+.addTodoContainer__button {
+  height: 55px;
+  font-size: 40px;
+}
+
+.addTodoContainer__input {
+  width: 400px;
+}
