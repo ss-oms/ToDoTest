@@ -18,6 +18,11 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   max-width: 420px;
+  text-decoration: none;
+}
+
+.listItem__textСompleted {
+  text-decoration: line-through;
 }
 
 .listItemEdit {

@@ -1,51 +1,47 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { memo, useEffect, useState } from "react";
+import { RootState, useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   deleteTodo,
   toggleTodo,
   editTodo,
   updateTodos,
+  Todo,
 } from "../../redux/todos.slice";
-import { Button, List, ListItem, ListItemText, TextField } from "@mui/material";
-import { RootState } from "../../redux/hooks";
-
+import { Button, List, ListItemText, TextField } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
 import CreateIcon from "@mui/icons-material/Create";
 import ClearIcon from "@mui/icons-material/Clear";
-
 import styles from "./todusList.module.css";
 
-export default function TodosList() {
-  console.log("TodosList");
-  const todos = useSelector((state: RootState) => state.todos.todos);
-  const dispatch = useDispatch();
+export default memo(function TodosList(): React.FC {
+  const [editMode, setEditMode] = useState<string>("");
+  const [editText, setEditText] = useState<string>("");
+  const todos = useAppSelector((state: RootState) => state.todos.todos);
+  const dispatch = useAppDispatch();
 
+  //удаление записи
   const handleDeleteTodo = (id: string) => {
     dispatch(deleteTodo(id));
   };
 
+  //отметка о выполнении
   const handleToggleTodo = (id: string) => {
     dispatch(toggleTodo(id));
   };
 
+  //редактирование записи
   const handleEditTodo = (id: string, newText: string) => {
     dispatch(editTodo({ id, newText }));
   };
-
-  const [editMode, setEditMode] = useState("");
-  const [editText, setEditText] = useState("");
-
   const startEditMode = (id: string, text: string) => {
     setEditMode(id);
     setEditText(text);
   };
-
   const handleCancelEdit = () => {
     setEditMode("");
     setEditText("");
   };
-
   const handleSaveEdit = (id: string, newText: string) => {
     if (newText.trim() !== "") {
       handleEditTodo(id, newText);
@@ -54,15 +50,15 @@ export default function TodosList() {
     }
   };
 
-  // Загрузка задач из localStorage при загрузке компонента
+  // Загрузка задач из localStorage
   useEffect(() => {
     const savedTodos = localStorage.getItem("todos");
     if (savedTodos) {
-      dispatch(updateTodos(JSON.parse(savedTodos)));
+      dispatch(updateTodos(JSON.parse(savedTodos) as Todo[]));
     }
   }, []);
 
-  // Сохранение задач в localStorage при обновлении состояния todos
+  // Сохраняю задач задач в localStorage
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
@@ -73,7 +69,7 @@ export default function TodosList() {
         <h1 className={styles.containerListEmpty}>Нет записей</h1>
       )}
       <List>
-        {todos.map((todo) => (
+        {todos.map((todo: Todo) => (
           <div key={todo.id} className={styles.containerList}>
             {editMode === todo.id ? (
               <div className={styles.listItemEdit}>
@@ -97,15 +93,12 @@ export default function TodosList() {
               <div className={styles.listItem}>
                 <div>
                   <ListItemText
-                    className={styles.listItem__text}
+                    className={
+                      todo.completed
+                        ? styles.listItem__textСompleted
+                        : styles.listItem__text
+                    }
                     primary={todo.text}
-                    primaryTypographyProps={{
-                      style: {
-                        textDecoration: todo.completed
-                          ? "line-through"
-                          : "none",
-                      },
-                    }}
                   />
                 </div>
                 <div>
@@ -126,4 +119,4 @@ export default function TodosList() {
       </List>
     </>
   );
-}
+});

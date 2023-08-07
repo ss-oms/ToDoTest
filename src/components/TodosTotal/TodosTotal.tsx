@@ -1,12 +1,11 @@
 import { Typography } from "@mui/material";
 import React, { memo } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/hooks";
+import { RootState, useAppSelector } from "../../redux/hooks";
 import styles from "./todosTotal.module.css";
 
-export default function TodosTotal() {
+export default memo(function TodosTotal(): React.FC {
   console.log("TodosTotal");
-  const todos = useSelector((state: RootState) => state.todos.todos);
+  const todos = useAppSelector((state: RootState) => state.todos.todos);
 
   const completeTodo = todos.filter((todo) => todo.completed);
 
@@ -20,4 +19,4 @@ export default function TodosTotal() {
       )}
     </>
   );
-}
+});

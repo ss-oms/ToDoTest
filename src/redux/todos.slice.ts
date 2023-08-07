@@ -1,14 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface Todo {
-  id: string;
-  text: string;
-  completed: boolean;
-}
-
-interface TodosState {
-  todos: Todo[];
-}
+import { Todo, TodosState } from "../types/types";
 
 const initialState: TodosState = {
   todos: [],
