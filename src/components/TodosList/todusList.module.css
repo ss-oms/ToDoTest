@@ -23,6 +23,10 @@
 
 .listItem__textСompleted {
   text-decoration: line-through;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 420px;
 }
 
 .listItemEdit {
